@@ -64,7 +64,7 @@ const Sidebar = () => {
                 <span className="menu-link-icon">
                   <MdOutlineGridView size={18} />
                 </span>
-                <span className="menu-link-text">Home</span>
+                <span className="menu-link-text">Dashboard</span>
               </Link>
             </li>
             <li className="menu-item">

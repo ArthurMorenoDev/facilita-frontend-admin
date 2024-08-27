@@ -1,0 +1,72 @@
+/* Altura da tela inteira com centralização */
+.cadastro-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-image: url('../src/assets/imagemFundo.png');
+}
+
+/* Estilização do formulário */
+.cadastro-form {
+    max-width: 28rem; /* max-w-md */
+    margin-top: 2.5rem; /* mt-10 */
+    background-color: white; /* bg-white */
+    padding: 2rem; /* p-8 */
+    border: 1px solid #d1d5db; /* border-gray-300 */
+    border-radius: 0.5rem; /* rounded-lg */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* shadow-lg */
+}
+
+/* Título do formulário */
+.cadastro-title {
+    font-size: 1.5rem; /* text-2xl */
+    font-weight: bold;
+    margin-bottom: 1.5rem; /* mb-6 */
+    text-align: center;
+    color: #1f2937; /* text-gray-800 */
+}
+
+/* Estilização dos inputs */
+.cadastro-input {
+    width: 100%;
+    padding: 0.75rem 0.75rem; /* px-3 py-2 */
+    border: 1px solid #d1d5db; /* border-gray-300 */
+    border-radius: 0.375rem; /* rounded-md */
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.cadastro-input:focus {
+    border-color: #3b82f6; /* focus:border-blue-500 */
+}
+
+/* Estilização do botão de submit */
+.cadastro-button {
+    width: 100%;
+    background-color: #3b82f6; /* bg-blue-500 */
+    color: white;
+    padding: 0.5rem 1rem; /* py-2 px-4 */
+    border-radius: 0.375rem; /* rounded-md */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cadastro-button:hover {
+    background-color: #2563eb; /* hover:bg-blue-400 */
+}
+
+/* Estilização do link de login */
+.cadastro-login-link {
+    color: #1d4ed8; /* text-blue-700 */
+    text-align: center;
+    margin-top: 1rem; /* mt-4 */
+    display: block;
+    text-decoration: none;
+    transition: text-decoration 0.3s;
+}
+
+.cadastro-login-link:hover {
+    text-decoration: underline;
+}

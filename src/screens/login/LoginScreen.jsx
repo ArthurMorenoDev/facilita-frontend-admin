@@ -1,4 +1,4 @@
-import "./style.css"; // Importa o arquivo CSS
+import "./styles.css"; // Importa o arquivo CSS
 import React, { useRef } from "react";
 
 const Login = () => {
