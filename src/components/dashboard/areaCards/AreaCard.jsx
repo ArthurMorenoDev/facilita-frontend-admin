@@ -26,7 +26,7 @@ const AreaCard = ({ colors, percentFillValue, cardInfo }) => {
         <div className="info-value">{cardInfo.value}</div>
         <p className="info-text">{cardInfo.text}</p>
       </div>
-      <div className="area-card-chart">
+      {/* <div className="area-card-chart">
         <PieChart width={100} height={100}>
           <Pie
             data={data}
@@ -49,7 +49,7 @@ const AreaCard = ({ colors, percentFillValue, cardInfo }) => {
           </Pie>
           <Tooltip formatter={renderTooltipContent} />
         </PieChart>
-      </div>
+      </div> */}
     </div>
   );
 };
