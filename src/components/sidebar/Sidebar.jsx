@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
 import { LIGHT_THEME } from "../../constants/themeConstants";
 import LogoBlue from "../../assets/images/logo_blue.svg";
@@ -16,8 +16,12 @@ import {
   MdOutlineShoppingBag,
 } from "react-icons/md";
 import { Link } from "react-router-dom";
+
 import "./Sidebar.scss";
 import { SidebarContext } from "../../context/SidebarContext";
+
+
+
 
 const Sidebar = () => {
   const { theme } = useContext(ThemeContext);
@@ -49,8 +53,9 @@ const Sidebar = () => {
     >
       <div className="sidebar-top">
         <div className="sidebar-brand">
-          <img src={theme === LIGHT_THEME ? LogoBlue : LogoWhite} alt="" />
-          <span className="sidebar-brand-text">tabernam.</span>
+        <img src="../src/assets/logo.PNG" className="logoMarca" alt="Logo" />
+          {/* <img src={theme === LIGHT_THEME ? LogoBlue : LogoWhite} alt="" />
+          <span className="sidebar-brand-text">tabernam.</span> */}
         </div>
         <button className="sidebar-close-btn" onClick={closeSidebar}>
           <MdOutlineClose size={24} />
