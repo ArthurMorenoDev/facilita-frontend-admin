@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MoonIcon from "./assets/icons/moon.svg";
 import SunIcon from "./assets/icons/sun.svg";
 import BaseLayout from "./layout/BaseLayout";
-import {Login, Consulta, Dashboard, PageNotFound, Cadastro } from "./screens";
+import {Login, Consulta, Dashboard, PageNotFound, Cadastro, Tabelas } from "./screens";
 
 function App() {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -30,6 +30,7 @@ function App() {
             <Route element={<BaseLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/consulta" element={<Consulta />} />
+            <Route path="/tabelas" element={<Tabelas />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>

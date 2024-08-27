@@ -60,7 +60,7 @@ const Sidebar = () => {
         <div className="sidebar-menu">
           <ul className="menu-list">
             <li className="menu-item">
-              <Link to="/" className="menu-link active">
+              <Link to="/dashboard" className="menu-link active">
                 <span className="menu-link-icon">
                   <MdOutlineGridView size={18} />
                 </span>
@@ -76,14 +76,15 @@ const Sidebar = () => {
               </Link>
             </li>
             <li className="menu-item">
-              <Link to="/" className="menu-link">
+              <Link to="/tabelas" className="menu-link">
                 <span className="menu-link-icon">
                   <MdOutlineAttachMoney size={20} />
                 </span>
                 <span className="menu-link-text">Tabelas</span>
               </Link>
             </li>
-            <li className="menu-item">
+
+            {/* <li className="menu-item">
               <Link to="/" className="menu-link">
                 <span className="menu-link-icon">
                   <MdOutlineCurrencyExchange size={18} />
@@ -114,7 +115,7 @@ const Sidebar = () => {
                 </span>
                 <span className="menu-link-text">Messages</span>
               </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
 
@@ -125,7 +126,7 @@ const Sidebar = () => {
                 <span className="menu-link-icon">
                   <MdOutlineSettings size={20} />
                 </span>
-                <span className="menu-link-text">Settings</span>
+                <span className="menu-link-text">Configurações</span>
               </Link>
             </li>
             <li className="menu-item">
@@ -133,7 +134,7 @@ const Sidebar = () => {
                 <span className="menu-link-icon">
                   <MdOutlineLogout size={20} />
                 </span>
-                <span className="menu-link-text">Logout</span>
+                <span className="menu-link-text">Sair</span>
               </Link>
             </li>
           </ul>
