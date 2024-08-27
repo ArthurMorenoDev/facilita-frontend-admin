@@ -1,0 +1,107 @@
+/* Altura da tela inteira com centralização */
+.formLogin {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-image: url('../src/assets/imagemFundo.png');
+}
+
+/* Container da logo */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 1rem;
+}
+
+/* Estilização da logo */
+.logo {
+    height: 144px; /* 36 * 4 */
+    width: 172px; /* 42 * 4 */
+}
+
+/* Container do formulário */
+.form-container {
+    background-color: rgba(108, 122, 137, 0.3); /* bg-slate-400 with opacity */
+    border: 1px solid #374151; /* border-slate-600 */
+    border-radius: 0.5rem; /* rounded-md */
+    padding: 2rem; /* p-8 */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* shadow-lg */
+    backdrop-filter: blur(10px); /* backdrop-blur-lg */
+    position: relative;
+}
+
+/* Título do formulário */
+.form-title {
+    font-size: 2.25rem; /* text-4xl */
+    font-weight: bold;
+    margin-bottom: 1.5rem; /* mb-6 */
+    text-align: center;
+    color: #1f2937; /* text-gray-800 */
+}
+
+/* Estilo do formulário */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem; /* gap-5 */
+}
+
+/* Estilização dos grupos de entrada */
+.input-group {
+    position: relative;
+    margin: 1rem 0; /* my-4 */
+}
+
+/* Estilização dos inputs */
+.input {
+    width: 288px; /* w-72 */
+    padding: 0.625rem 0; /* py-2.5 */
+    font-size: 0.875rem; /* text-sm */
+    color: #1f2937; /* text-gray-900 */
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #d1d5db; /* border-gray-300 */
+    outline: none;
+    appearance: none;
+    transition: border-color 0.3s;
+}
+
+.input:focus {
+    border-bottom-color: #2563eb; /* border-blue-600 */
+}
+
+/* Estilização dos labels */
+.input-label {
+    position: absolute;
+    top: 0.75rem; /* top-3 */
+    left: 0;
+    font-size: 0.875rem; /* text-sm */
+    color: #6b7280; /* text-gray-500 */
+    transition: transform 0.3s, scale 0.3s;
+    transform-origin: 0;
+}
+
+.input:focus ~ .input-label,
+.input:not(:placeholder-shown) ~ .input-label {
+    transform: translateY(-1.5rem) scale(0.75); /* -translate-y-6 scale-75 */
+    color: #2563eb; /* text-blue-600 */
+}
+
+/* Estilização do botão de submit */
+.submit-button {
+    width: 100%;
+    padding: 0.5rem 0; /* py-2 */
+    font-size: 18px;
+    color: #fff;
+    background-color: #3b82f6; /* bg-blue-500 */
+    border: none;
+    border-radius: 0.375rem; /* rounded */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #2563eb; /* bg-blue-600 */
+}
