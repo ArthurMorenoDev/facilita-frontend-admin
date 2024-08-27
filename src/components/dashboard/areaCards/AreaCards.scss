@@ -13,7 +13,6 @@
   }
 
   .area-card {
-    background-color: var(--secondary-color);
     display: flex;
     align-items: center;
     border-radius: 5px;
@@ -26,15 +25,17 @@
     }
 
     .info-title {
-      padding-left: 20px;
-      color: var(--lg-text-color);
+      padding-left: 13px;
+      color: antiquewhite;
+      // color: var(--lg-text-color);
       font-size: 18px;
       margin-bottom: 8px;
       font-weight: bold;
     }
 
     .info-value {
-      color: var(--xl-text-color);
+      color: aliceblue;
+      // color: var(--xl-text-color);
       text-align: center;
       font-weight: 700;
       font-size: 24px;
@@ -64,4 +65,21 @@
     font-family: inherit !important;
     opacity: 0.9;
   }
+}
+
+.digitada{
+  background-color: #6f767c;
+  border-radius: 15px;
+}
+.pendente{
+  background-color: #fec107;
+  border-radius: 15px;
+}
+.paga{
+  background-color: #188754;
+  border-radius: 15px;
+}
+.cancelada{
+  background-color: #de3447;
+  border-radius: 15px;
 }

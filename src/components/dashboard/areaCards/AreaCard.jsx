@@ -20,7 +20,7 @@ const AreaCard = ({ colors, percentFillValue, cardInfo }) => {
   };
 
   return (
-    <div className="area-card">
+    <div className="area-card" >
       <div className="area-card-info">
         <h5 className="info-title">{cardInfo.title}</h5>
         <div className="info-value">{cardInfo.value}</div>
