@@ -1,15 +1,30 @@
 import "./styles.css"; // Importa o arquivo CSS
 import React, { useRef } from "react";
+import api from "../../services/api";
+import { Link, useNavigate } from "react-router-dom"
 
 const Login = () => {
     const emailRef = useRef();
     const passwordRef = useRef();
+    const navigate = useNavigate()
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // Lógica de submissão do formulário
-        console.log("Email:", emailRef.current.value);
-        console.log("Password:", passwordRef.current.value);
+    async function handleSubmit(event) {
+        event.preventDefault()
+
+        try {
+            const { data: token } = await api.post('/login', {
+
+                email: emailRef.current.value,
+                password: passwordRef.current.value
+            })
+            localStorage.setItem('token', token)
+            console.log(token)
+
+            navigate('/dashboard')
+
+        } catch (err) {
+            alert("Senha ou Email incorretos")
+        }
     };
 
     return (

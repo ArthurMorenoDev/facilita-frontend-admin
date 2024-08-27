@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import "./styles.css"; // Importa o arquivo CSS
+import api from "../../services/api";
 
 function Cadastro() {
     const nameRef = useRef();
