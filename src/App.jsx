@@ -7,6 +7,8 @@ import MoonIcon from "./assets/icons/moon.svg";
 import SunIcon from "./assets/icons/sun.svg";
 import BaseLayout from "./layout/BaseLayout";
 import {Login, Consulta, Dashboard, PageNotFound, Cadastro, Tabelas } from "./screens";
+import { PrivateRoute } from "./privateRoute.jsx";
+
 
 function App() {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -27,10 +29,10 @@ function App() {
             <Route path="/" element={<Login />} />
             <Route path="/login" element={<Login />} />
             <Route path="/cadastro" element={<Cadastro />} />
-            <Route element={<BaseLayout />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/consulta" element={<Consulta />} />
-            <Route path="/tabelas" element={<Tabelas />} />
+            <Route element={<PrivateRoute> <BaseLayout /></PrivateRoute>}>
+            <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+            <Route path="/consulta" element={<PrivateRoute><Consulta /></PrivateRoute>} />
+            <Route path="/tabelas" element={<PrivateRoute><Tabelas /></PrivateRoute>} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>

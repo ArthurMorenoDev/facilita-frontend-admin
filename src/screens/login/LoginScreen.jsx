@@ -2,6 +2,7 @@ import "./styles.css"; // Importa o arquivo CSS
 import React, { useRef } from "react";
 import api from "../../services/api";
 import { Link, useNavigate } from "react-router-dom"
+import { PrivateRoute } from "../../privateRoute";
 
 const Login = () => {
     const emailRef = useRef();
