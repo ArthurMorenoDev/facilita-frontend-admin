@@ -110,7 +110,7 @@ const Sidebar = () => {
         <div className="sidebar-menu sidebar-menu2">
           <ul className="menu-list">
             <li className="menu-item">
-              <Link to="/" className="menu-link" onClick={handleMenuItemClick}>
+              <Link to="*" className="menu-link" onClick={handleMenuItemClick}>
                 <span className="menu-link-icon">
                   <MdOutlineSettings size={20} />
                 </span>

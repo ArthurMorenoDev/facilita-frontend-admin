@@ -4,7 +4,7 @@ const Comission = () => {
   return (
     <div>
         <div className="table-tittle">
-            <h3>COMISSÕES GERADAS - PROPOSTAS/PERIODO</h3>
+            <h3>COMISSÕES GERADAS - PROPOSTAS</h3>
         
         </div>
       <form className="tabelaForm">
@@ -14,7 +14,7 @@ const Comission = () => {
           </div>
 
           <div className="consulta">
-            <input placeholder="BANCO   " type="text" className="input2"></input>
+            <input placeholder="BANCO" type="text" className="input2"></input>
           </div>
 
           <div className="consulta">
