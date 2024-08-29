@@ -79,12 +79,12 @@ const AreaBarChart = () => {
   return (
     <div className="bar-chart">
       <div className="bar-chart-info">
-        <h5 className="bar-chart-title">Total Revenue</h5>
+        <h5 className="bar-chart-title">Receita Total</h5>
         <div className="chart-info-data">
-          <div className="info-data-value">$50.4K</div>
+          <div className="info-data-value">R$50.4K</div>
           <div className="info-data-text">
             <FaArrowUpLong />
-            <p>5% than last month.</p>
+            <p>5% Mais que o mês passado</p>
           </div>
         </div>
       </div>
@@ -142,7 +142,7 @@ const AreaBarChart = () => {
             />
             <Bar
               dataKey="loss"
-              fill="#e3e7fc"
+              fill="#f58634"
               activeBar={false}
               isAnimationActive={false}
               barSize={24}
