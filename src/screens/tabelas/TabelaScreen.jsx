@@ -10,14 +10,14 @@ const Tables = () => {
     try {
       const token = localStorage.getItem('token'); // Obtenha o token do localStorage
 
-      // Faça a requisição GET com o token de autenticação
+      // Faz a requisição GET com o token de autenticação
       const res = await axios.get("http://localhost:3000/listar-dados", {
         headers: {
-          Authorization: `Bearer ${token}`, // Envie o token no cabeçalho Authorization
+          Authorization: `Bearer ${token}`, // Envia o token no cabeçalho Authorization
         },
       });
 
-      setData(res.data.data); // Defina os dados retornados na resposta
+      setData(res.data.data); // Define os dados retornados na resposta
       console.log(res.data);
     } catch (error) {
       console.error("Erro ao buscar os dados:", error);
