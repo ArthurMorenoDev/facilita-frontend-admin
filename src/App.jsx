@@ -32,7 +32,7 @@ function App() {
             <Route element={<PrivateRoute> <BaseLayout /></PrivateRoute>}>
             <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
             <Route path="/consulta" element={<PrivateRoute><Consulta /></PrivateRoute>} />
-            <Route path="/tabelas" element={<PrivateRoute><Tabelas /></PrivateRoute>} />
+            <Route path="/tabelas" element={<PrivateRoute><Tabelas  /></PrivateRoute>} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>

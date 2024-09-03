@@ -9,92 +9,7 @@ const TABLE_HEADS = [
   "Data Pagamento",
 ];
 
-const TABLE_DATA = [
-  // {
-  //   id: 100,
-  //   name: "Iphone 13 Pro",
-  //   order_id: 11232,
-  //   date: "Jun 29,2022",
-  //   customer: "Afaq Karim",
-  //   status: "delivered",
-  //   amount: 400,
-  // },
-  // {
-  //   id: 101,
-  //   name: "Macbook Pro",
-  //   order_id: 11232,
-  //   date: "Jun 29,2022",
-  //   customer: "Afaq Karim",
-  //   status: "pending",
-  //   amount: 288,
-  // },
-  // {
-  //   id: 102,
-  //   name: "Apple Watch",
-  //   order_id: 11232,
-  //   date: "Jun 29,2022",
-  //   customer: "Afaq Karim",
-  //   status: "canceled",
-  //   amount: 500,
-  // },
-  // {
-  //   id: 103,
-  //   name: "Microsoft Book",
-  //   order_id: 11232,
-  //   date: "Jun 29,2022",
-  //   customer: "Afaq Karim",
-  //   status: "delivered",
-  //   amount: 100,
-  // },
-  // {
-  //   id: 104,
-  //   name: "Apple Pen",
-  //   order_id: 11232,
-  //   date: "Jun 29,2022",
-  //   customer: "Afaq Karim",
-  //   status: "delivered",
-  //   amount: 60,
-  // },
-  // {
-  //   id: 105,
-  //   name: "Airpods",
-  //   order_id: 11232,
-  //   date: "Jun 29,2022",
-  //   customer: "Afaq Karim",
-  //   status: "delivered",
-  //   amount: 80,
-  // },
-
-   {
-    id: 105,
-    acertos: "349180",
-    proposta: "9888497789",
-    banco: "exemplo",
-    comissao: "325.27",
-    datePay: "05-11-2001",
-  },
-   {
-    id: 106,
-    acertos: "349180",
-    proposta: "9888497789",
-    banco: "exemplo",
-    comissao: "325.27",
-    datePay: "05-11-2001",
-  },
-   {
-    id: 107,
-    acertos: "349180",
-    proposta: "9888497789",
-    banco: "exemplo",
-    comissao: "325.27",
-    datePay: "05-11-2001",
-  },
-   
-   
-  
-];
-
-const AreaTable = () => {
+const AreaTable = ({ data }) => {
   return (
     <section className="content-area-table">
       <div className="data-table-info">
@@ -110,29 +25,26 @@ const AreaTable = () => {
             </tr>
           </thead>
           <tbody>
-            {TABLE_DATA?.map((dataItem) => {
-              return (
-                <tr key={dataItem.id}>
+            {Array.isArray(data) && data.length > 0 ? (
+              data.map((dataItem, i) => (
+                <tr key={i}>
                   <td>{dataItem.acertos}</td>
                   <td>{dataItem.proposta}</td>
                   <td>{dataItem.banco}</td>
                   <td>{dataItem.comissao} R$</td>
-                  <td>{dataItem.datePay}</td>
-                  {/* <td>
-                    <div className="dt-status">
-                      <span
-                        className={`dt-status-dot dot-${dataItem.status}`}
-                      ></span>
-                      <span className="dt-status-text">{dataItem.status}</span>
-                    </div>
-                  </td> */}
-                  {/* <td>${dataItem.amount.toFixed(2)}</td> */}
+                  <td>{new Date(dataItem.createdAt).toISOString().slice(0, 10)}</td>
                   <td className="dt-cell-action">
                     <AreaTableAction />
                   </td>
                 </tr>
-              );
-            })}
+              ))
+            ) : (
+              <tr>
+                <td colSpan={TABLE_HEADS.length} style={{ textAlign: 'center' }}>
+                  Nenhum dado encontrado
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
