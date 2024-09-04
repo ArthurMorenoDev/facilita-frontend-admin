@@ -3,4 +3,15 @@ export { default as PageNotFound } from "./error/PageNotFound";
 export {default as Consulta } from "./consulta/ConsultaScreen"; 
 export {default as Login} from "./login/LoginScreen";
 export {default as Cadastro} from "./cadastro/cadastroScreen";
-export {default as Tabelas} from "./tabelas/TabelaScreen"
+export {default as Tabelas} from "./tabelas/TabelaScreen";
+export {default as Acordo} from "./acordo/acordoScreen";
+export {default as Agentes} from "./agentes/AgentesScreen";
+export {default as Pagamento} from "./pagamento/PagamentoScreen";
+export {default as Condicoes} from "./condicoes/CondicoesScreen";
+export {default as Acompanhamento} from "./acompanhamento/acompanhamentoScreen";
+export {default as Solicitacoes} from "./solicitacoes/SolicitacoesScreen";
+export {default as Vigencias} from "./vigencias/VigenciasScreen";
+export {default as Pendencias} from "./pendencias/PendenciasScreen";
+export {default as CreditoConta} from "./credito-conta/Credito-contaScreen";
+export {default as ImportProposta} from "./import-proposta/ImportPropostaScreen";
+export {default as RelatorioCMS} from "./relatorioCMS/RelatorioCMSScreen";
