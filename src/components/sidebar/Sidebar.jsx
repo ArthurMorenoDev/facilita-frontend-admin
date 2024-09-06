@@ -146,7 +146,7 @@ const Sidebar = () => {
                 onClick={handleMenuItemClick}
               >
                 <span className="menu-link-icon">
-                  <MdCallToAction   size={20} />
+                  <MdCallToAction size={20} />
                 </span>
                 <span className="menu-link-text">Solicitações</span>
               </Link>
@@ -291,7 +291,7 @@ const Sidebar = () => {
                 </li>
                 <li className="submenu-item">
                   <Link to="/agentes/opcao3" className="submenu-link">
-                    Cobranças Banco 
+                    Cobranças Banco
                   </Link>
                 </li>
                 <li className="submenu-item">
@@ -360,6 +360,7 @@ const Sidebar = () => {
                 <span className="menu-link-text">Logout</span>
               </Link>
             </li>
+            <li className="userName">logado como:</li>
           </ul>
         </div>
       </div>

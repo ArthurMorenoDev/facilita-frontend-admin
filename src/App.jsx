@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MoonIcon from "./assets/icons/moon.svg";
 import SunIcon from "./assets/icons/sun.svg";
 import BaseLayout from "./layout/BaseLayout";
-import {Login, Consulta, Dashboard, PageNotFound, Cadastro, Tabelas, Acordo, Agentes, Condicoes, Pagamento, Acompanhamento, Solicitacoes, Vigencias, Pendencias, CreditoConta, ImportProposta, RelatorioCMS } from "./screens";
+import { Login, Consulta, Dashboard, PageNotFound, Cadastro, Tabelas, Acordo, Agentes, Condicoes, Pagamento, Acompanhamento, Solicitacoes, Vigencias, Pendencias, CreditoConta, ImportProposta, RelatorioCMS } from "./screens";
 import { PrivateRoute } from "./privateRoute.jsx";
 
 
@@ -26,24 +26,24 @@ function App() {
     <>
       <Router>
         <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/cadastro" element={<Cadastro />} />
-            <Route element={<PrivateRoute> <BaseLayout /></PrivateRoute>}>
+          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/cadastro" element={<Cadastro />} />
+          <Route element={<PrivateRoute> <BaseLayout /></PrivateRoute>}>
             <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
             <Route path="/consulta" element={<PrivateRoute><Consulta /></PrivateRoute>} />
-            <Route path="/tabelas" element={<PrivateRoute><Tabelas  /></PrivateRoute>} />
-            <Route path="/agentes" element={<PrivateRoute><Agentes  /></PrivateRoute>} />
-            <Route path="/acordo" element={<PrivateRoute><Acordo  /></PrivateRoute>} />
-            <Route path="/condicoes" element={<PrivateRoute><Condicoes  /></PrivateRoute>} />
-            <Route path="/pagamento" element={<PrivateRoute><Pagamento  /></PrivateRoute>} />
-            <Route path="/acompanhamento" element={<PrivateRoute><Acompanhamento  /></PrivateRoute>} />
-            <Route path="/solicitacoes" element={<PrivateRoute><Solicitacoes  /></PrivateRoute>} />
-            <Route path="/vigencias" element={<PrivateRoute><Vigencias  /></PrivateRoute>} />
-            <Route path="/pendencias" element={<PrivateRoute><Pendencias  /></PrivateRoute>} />
-            <Route path="/credito-conta" element={<PrivateRoute><CreditoConta  /></PrivateRoute>} />
-            <Route path="/import-proposta" element={<PrivateRoute><ImportProposta  /></PrivateRoute>} />
-            <Route path="/relatorioCMS" element={<PrivateRoute><RelatorioCMS  /></PrivateRoute>} />
+            <Route path="/tabelas" element={<PrivateRoute><Tabelas /></PrivateRoute>} />
+            <Route path="/agentes" element={<PrivateRoute><Agentes /></PrivateRoute>} />
+            <Route path="/acordo" element={<PrivateRoute><Acordo /></PrivateRoute>} />
+            <Route path="/condicoes" element={<PrivateRoute><Condicoes /></PrivateRoute>} />
+            <Route path="/pagamento" element={<PrivateRoute><Pagamento /></PrivateRoute>} />
+            <Route path="/acompanhamento" element={<PrivateRoute><Acompanhamento /></PrivateRoute>} />
+            <Route path="/solicitacoes" element={<PrivateRoute><Solicitacoes /></PrivateRoute>} />
+            <Route path="/vigencias" element={<PrivateRoute><Vigencias /></PrivateRoute>} />
+            <Route path="/pendencias" element={<PrivateRoute><Pendencias /></PrivateRoute>} />
+            <Route path="/credito-conta" element={<PrivateRoute><CreditoConta /></PrivateRoute>} />
+            <Route path="/import-proposta" element={<PrivateRoute><ImportProposta /></PrivateRoute>} />
+            <Route path="/relatorioCMS" element={<PrivateRoute><RelatorioCMS /></PrivateRoute>} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>
