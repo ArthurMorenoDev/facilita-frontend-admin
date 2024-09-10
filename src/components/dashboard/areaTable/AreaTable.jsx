@@ -1,5 +1,5 @@
 import React from "react";
-import AreaTableAction from "./AreaTableAction";
+// import AreaTableAction from "./AreaTableAction";
 import Loading from "../../loading/Loading"; // Importe o componente de loading
 import "./AreaTable.scss";
 
@@ -47,7 +47,6 @@ const AreaTable = ({ data, loading, onDelete, onEdit }) => {
                     </td>
                   ))}
                   <td className="dt-cell-action">
-                    {/* Supondo que você tenha botões para ações aqui */}
                     <button onClick={() => onEdit(dataItem.id)}>Editar</button>
                     <button onClick={() => onDelete(dataItem.id)}>Excluir</button>
                   </td>
