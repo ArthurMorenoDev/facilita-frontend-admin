@@ -3,11 +3,11 @@ import AreaTableAction from "./AreaTableAction";
 import Loading from "../../loading/Loading"; // Importe o componente de loading
 import "./AreaTable.scss";
 
-const AreaTable = ({ data, loading }) => {
-  // Função para extrair os cabeçalhos dos dados
+const AreaTable = ({ data, loading, onDelete, onEdit }) => {
+  // Função para extrair os cabeçalhos dos dados, excluindo "createAt" e "updateAt"
   const getTableHeads = (data) => {
     if (Array.isArray(data) && data.length > 0) {
-      return Object.keys(data[0]); // Extrai as chaves do primeiro item dos dados
+      return Object.keys(data[0]).filter(key => key !== "createdAt" && key !== "updatedAt"); // Filtra as chaves
     }
     return [];
   };
@@ -17,7 +17,7 @@ const AreaTable = ({ data, loading }) => {
     return <Loading />;
   }
 
-  // Extrai os cabeçalhos dos dados
+  // Extrai os cabeçalhos dos dados, excluindo "createAt" e "updateAt"
   const tableHeads = getTableHeads(data);
 
   return (
@@ -32,7 +32,7 @@ const AreaTable = ({ data, loading }) => {
               {tableHeads.map((head, index) => (
                 <th key={index}>{head}</th>
               ))}
-              {/* <th>Ações</th> Coluna adicional para ações */}
+             
             </tr>
           </thead>
           <tbody>
@@ -47,7 +47,9 @@ const AreaTable = ({ data, loading }) => {
                     </td>
                   ))}
                   <td className="dt-cell-action">
-                    <AreaTableAction />
+                    {/* Supondo que você tenha botões para ações aqui */}
+                    <button onClick={() => onEdit(dataItem.id)}>Editar</button>
+                    <button onClick={() => onDelete(dataItem.id)}>Excluir</button>
                   </td>
                 </tr>
               ))
