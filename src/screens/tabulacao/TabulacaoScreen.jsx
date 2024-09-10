@@ -12,7 +12,7 @@ const Tabulacoes = () => {
       setLoading(true);
       const token = localStorage.getItem("token"); // Obtém o token do localStorage
       // Faz a requisição GET com o token de autenticação
-      const res = await axios.get("http://localhost:3000/listar-tabulacoes", {
+      const res = await axios.get("http://localhost:3000/tabulacao", {
         headers: {
           Authorization: `Bearer ${token}`, // Envia o token no cabeçalho Authorization
         },
