@@ -126,17 +126,17 @@ const Sidebar = () => {
                 <span className="menu-link-text">Home</span>
               </Link>
             </li>
-            <div className="menu-link-head">Tubulações</div>
+            <div className="menu-link-head">Tabulações</div>
             <li className="menu-item">
               <Link
-                to="/consulta"
+                to="/tabulacoes"
                 className="menu-link"
                 onClick={handleMenuItemClick}
               >
                 <span className="menu-link-icon">
                   <MdOutlineBarChart size={20} />
                 </span>
-                <span className="menu-link-text">Tubulações</span>
+                <span className="menu-link-text">Tabulações</span>
               </Link>
             </li>
             <li className="menu-item">

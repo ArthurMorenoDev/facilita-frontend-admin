@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MoonIcon from "./assets/icons/moon.svg";
 import SunIcon from "./assets/icons/sun.svg";
 import BaseLayout from "./layout/BaseLayout";
-import { Login, Consulta, Dashboard, PageNotFound, Cadastro, Tabelas, Acordo, Agentes, Condicoes, Pagamento, Acompanhamento, Solicitacoes, Vigencias, Pendencias, CreditoConta, ImportProposta, RelatorioCMS } from "./screens";
+import { Login, Dashboard, PageNotFound, Cadastro, Tabelas, Acordo, Agentes, Condicoes, Pagamento, Acompanhamento, Solicitacoes, Vigencias, Pendencias, CreditoConta, ImportProposta, RelatorioCMS, Tabulacao } from "./screens";
 import { PrivateRoute } from "./privateRoute.jsx";
 
 
@@ -31,7 +31,7 @@ function App() {
           <Route path="/cadastro" element={<Cadastro />} />
           <Route element={<PrivateRoute> <BaseLayout /></PrivateRoute>}>
             <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-            <Route path="/consulta" element={<PrivateRoute><Consulta /></PrivateRoute>} />
+            <Route path="/tabulacoes" element={<PrivateRoute><Tabulacao /></PrivateRoute>} />
             <Route path="/tabelas" element={<PrivateRoute><Tabelas /></PrivateRoute>} />
             <Route path="/agentes" element={<PrivateRoute><Agentes /></PrivateRoute>} />
             <Route path="/acordo" element={<PrivateRoute><Acordo /></PrivateRoute>} />
