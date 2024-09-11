@@ -5,34 +5,21 @@ import Comission from "../../components/comission/Comission";
 
 const Tables = () => {
   const [reembolsos, setReembolso] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); // Adicione o estado de carregamento
 
   const getReembolso = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("token"); // Obtenha o token do localStorage
+      // Faz a requisição GET com o token de autenticação
       const res = await axios.get("http://localhost:3000/reembolso", {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`, // Envia o token no cabeçalho Authorization
         },
       });
-
-      // Filtrar as colunas indesejadas
-      const filteredData = res.data.data.map((item) => {
-        const {
-          data_inicio,
-          data_fim,
-          data_aprovacao_regional,
-          usuario_solicitante,
-          data_credito,
-          ...rest
-        } = item; // Remover as colunas indesejadas
-        return rest;
-      });
-
       setLoading(false);
-      setReembolso(filteredData);
-      console.log(filteredData);
+      setReembolso(res.data.data || [] ); // Define os dados retornados na resposta
+      console.log(res.data);
     } catch (error) {
       setLoading(false);
       console.error("Erro ao buscar os dados:", error);
@@ -41,12 +28,13 @@ const Tables = () => {
 
   useEffect(() => {
     getReembolso();
-  }, []);
+  }, []); // O segundo argumento [] garante que o useEffect execute apenas uma vez, quando o componente for montado
 
   return (
     <div className="content-area">
       <Comission />
-      <AreaTable data={reembolsos} loading={loading} />
+      <AreaTable data={reembolsos} loading={loading} />{" "}
+      {/* Passe a prop de carregamento */}
     </div>
   );
 };
