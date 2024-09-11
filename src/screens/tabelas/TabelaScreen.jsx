@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import AreaTable from "../../components/dashboard/areaTable/AreaTable";
 import Comission from "../../components/comission/Comission";
+import TabelaReembolso from "../../components/Tabela-Reembolso/TabelaReembolso"
 
 const Tables = () => {
   const [reembolsos, setReembolso] = useState([]);
