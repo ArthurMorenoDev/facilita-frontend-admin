@@ -7,7 +7,7 @@ const AreaTable = ({ data, loading, onDelete, onEdit }) => {
   // Função para extrair os cabeçalhos dos dados, excluindo "createAt" e "updateAt"
   const getTableHeads = (data) => {
     if (Array.isArray(data) && data.length > 0) {
-      return Object.keys(data[0]).filter(key => key !== "createdAt" && key !== "updatedAt"); // Filtra as chaves
+      return Object.keys(data[0]).filter(key => key !== "createdAt" && key !== "updatedAt" ); // Filtra as chaves
     }
     return [];
   };

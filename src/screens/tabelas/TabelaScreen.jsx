@@ -4,22 +4,35 @@ import AreaTable from "../../components/dashboard/areaTable/AreaTable";
 import Comission from "../../components/comission/Comission";
 
 const Tables = () => {
-  const [solicitacoes, setSolicitacoes] = useState([]);
-  const [loading, setLoading] = useState(false); // Adicione o estado de carregamento
+  const [reembolsos, setReembolso] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const getSolicitacoes = async () => {
+  const getReembolso = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem("token"); // Obtenha o token do localStorage
-      // Faz a requisição GET com o token de autenticação
-      const res = await axios.get("http://localhost:3000/listar-dados", {
+      const token = localStorage.getItem("token");
+      const res = await axios.get("http://localhost:3000/reembolso", {
         headers: {
-          Authorization: `Bearer ${token}`, // Envia o token no cabeçalho Authorization
+          Authorization: `Bearer ${token}`,
         },
       });
+
+      // Filtrar as colunas indesejadas
+      const filteredData = res.data.data.map((item) => {
+        const {
+          data_inicio,
+          data_fim,
+          data_aprovacao_regional,
+          usuario_solicitante,
+          data_credito,
+          ...rest
+        } = item; // Remover as colunas indesejadas
+        return rest;
+      });
+
       setLoading(false);
-      setSolicitacoes(res.data.data); // Define os dados retornados na resposta
-      console.log(res.data);
+      setReembolso(filteredData);
+      console.log(filteredData);
     } catch (error) {
       setLoading(false);
       console.error("Erro ao buscar os dados:", error);
@@ -27,14 +40,13 @@ const Tables = () => {
   };
 
   useEffect(() => {
-    getSolicitacoes();
-  }, []); // O segundo argumento [] garante que o useEffect execute apenas uma vez, quando o componente for montado
+    getReembolso();
+  }, []);
 
   return (
     <div className="content-area">
       <Comission />
-      <AreaTable data={solicitacoes} loading={loading} />{" "}
-      {/* Passe a prop de carregamento */}
+      <AreaTable data={reembolsos} loading={loading} />
     </div>
   );
 };
