@@ -1,0 +1,142 @@
+/* Estilo para o formulário de filtros */
+.filter-form {
+    
+    margin: 20px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    flex-wrap: wrap;
+    border-radius: 5px;
+  }
+  
+  .filter-form label {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+  
+  .filter-form select {
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 16px;
+  }
+  
+  /* Estilo para a célula dos ícones */
+  .icon-cell {
+    width: 50px; /* Largura da célula */
+    height: 50px; /* Altura da célula */
+    text-align: center; /* Alinhar o texto (ícone) no centro horizontalmente */
+    vertical-align: middle; /* Alinhar o ícone no centro verticalmente */
+  }
+  
+  /* Estilo para celula id */
+
+  .id-cell{
+    width: 50px;
+  }
+
+  /* Estilo para os ícones */
+  .icon {
+    font-size: 30px; /* Tamanho do ícone */
+    cursor: pointer; /* Mostrar cursor pointer quando passar o mouse */
+    color: #007bff; /* Cor padrão do ícone de Histórico */
+    transition: color 0.3s ease; /* Transição suave para a cor */
+  }
+  
+  /* Adicionar cor de hover ao ícone de Histórico */
+  .icon-cell .icon:hover {
+    color: #0056b3; /* Cor ao passar o mouse sobre o ícone de Histórico */
+  }
+  
+  /* Adicionar cor de hover ao ícone de Despesas */
+  .icon-cell .icon:nth-of-type(2):hover {
+    color: #218838; /* Cor ao passar o mouse sobre o ícone de Despesas */
+  }
+
+  .btn-show-form {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .filter-form,
+.request-form {
+  margin-bottom: 20px;
+}
+
+.filter-form label,
+.request-form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.request-form {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.request-form h3 {
+    padding-bottom: 20px;
+  margin-top: 0;
+}
+
+.request-form .form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.request-form label {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.request-form input,
+.request-form textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
+
+.request-form .form-buttons {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.request-form button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.request-form button[type="button"] {
+  background-color: #6c757d;
+}
+
+.btn-search {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  
+  .btn-search:hover {
+    background-color: #0056b3;
+  }
+  
+
+ 

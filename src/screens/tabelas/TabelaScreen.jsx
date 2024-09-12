@@ -1,26 +1,50 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import AreaTable from "../../components/dashboard/areaTable/AreaTable";
 import Comission from "../../components/comission/Comission";
-import TabelaReembolso from "../../components/Tabela-Reembolso/TabelaReembolso"
+import TabelaReembolso from "../../components/Tabela-Reembolso/TabelaReembolso";
+
+// Função utilitária para formatar a data
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('pt-BR'); // Formato dd/mm/aaaa
+};
 
 const Tables = () => {
   const [reembolsos, setReembolso] = useState([]);
-  const [loading, setLoading] = useState(false); // Adicione o estado de carregamento
+  const [loading, setLoading] = useState(false);
 
   const getReembolso = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem("token"); // Obtenha o token do localStorage
-      // Faz a requisição GET com o token de autenticação
+      const token = localStorage.getItem("token");
       const res = await axios.get("http://localhost:3000/reembolso", {
         headers: {
-          Authorization: `Bearer ${token}`, // Envia o token no cabeçalho Authorization
+          Authorization: `Bearer ${token}`,
         },
       });
       setLoading(false);
-      setReembolso(res.data.data || [] ); // Define os dados retornados na resposta
-      console.log(res.data);
+
+      // Função utilitária para formatar o valor no estilo monetário
+const formatValor = (valor) => {
+  return new Intl.NumberFormat('pt-BR', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(valor);
+};
+
+const filteredData = res.data.data.map((item) => ({
+  id: item.id,
+  Data: formatDate(item.data), // Formatar a data
+  Semana: `${formatDate(item.data_incio)} - ${formatDate(item.data_fim)}`, // Formatar o período da semana
+  Rota: item.tipo_rota, // Rota
+  Status: item.status, // Status
+  Valor: formatValor(item.valor), // Formatar o valor com separadores de milhar e ponto para centavos
+}));
+;
+
+      console.log(res.data.data)
+      setReembolso(filteredData);
+      console.log(filteredData);
     } catch (error) {
       setLoading(false);
       console.error("Erro ao buscar os dados:", error);
@@ -29,13 +53,12 @@ const Tables = () => {
 
   useEffect(() => {
     getReembolso();
-  }, []); // O segundo argumento [] garante que o useEffect execute apenas uma vez, quando o componente for montado
+  }, []);
 
   return (
     <div className="content-area">
-      <Comission />
-      <AreaTable data={reembolsos} loading={loading} />{" "}
-      {/* Passe a prop de carregamento */}
+      
+      <TabelaReembolso data={reembolsos} loading={loading} />
     </div>
   );
 };
