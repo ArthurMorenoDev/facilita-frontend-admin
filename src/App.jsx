@@ -1,17 +1,17 @@
 import { useContext, useEffect } from "react";
 import "./App.scss";
 import { ThemeContext } from "./context/ThemeContext";
-import { DARK_THEME, LIGHT_THEME } from "./constants/themeConstants";
+import { DARK_THEME } from "./constants/themeConstants";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import MoonIcon from "./assets/icons/moon.svg";
-import SunIcon from "./assets/icons/sun.svg";
+// import MoonIcon from "./assets/icons/moon.svg";
+// import SunIcon from "./assets/icons/sun.svg";
 import BaseLayout from "./layout/BaseLayout";
 import { Login, Dashboard, PageNotFound, Cadastro, Tabelas, Acordo, Agentes, Condicoes, Pagamento, Acompanhamento, Solicitacoes, Vigencias, Pendencias, CreditoConta, ImportProposta, RelatorioCMS, Tabulacao } from "./screens";
 import { PrivateRoute } from "./privateRoute.jsx";
 
 
 function App() {
-  const { theme, toggleTheme } = useContext(ThemeContext);
+  const { theme, } = useContext(ThemeContext);
 
   // adding dark-mode class if the dark mode is set on to the body tag
   useEffect(() => {

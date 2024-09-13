@@ -1,6 +1,6 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
-import { ThemeContext } from "../../context/ThemeContext";
-import { LIGHT_THEME } from "../../constants/themeConstants";
+import { useState, useContext, useRef } from "react";
+// import { ThemeContext } from "../../context/ThemeContext";
+// import { LIGHT_THEME } from "../../constants/themeConstants";
 import {
   MdAssessment,
   MdBusinessCenter,
@@ -8,11 +8,9 @@ import {
   MdOutlineAttachMoney,
   MdOutlineBarChart,
   MdOutlineClose,
-  MdOutlineGridView,
   MdOutlineLogout,
   MdOutlineSettings,
   MdKeyboardArrowDown,
-  MdKeyboardArrowUp,
   MdOutlinePeople,
   MdHome,
   MdKeyboardArrowRight
@@ -23,7 +21,7 @@ import "./Sidebar.scss";
 import { SidebarContext } from "../../context/SidebarContext";
 
 const Sidebar = () => {
-  const { theme } = useContext(ThemeContext);
+  // const { theme } = useContext(ThemeContext);
   const { isSidebarOpen, closeSidebar } = useContext(SidebarContext);
   const navbarRef = useRef(null);
 
@@ -40,15 +38,15 @@ const Sidebar = () => {
   });
 
   // Função para fechar a barra lateral quando clicar fora da área da barra lateral
-  const handleClickOutside = (event) => {
-    if (
-      navbarRef.current &&
-      !navbarRef.current.contains(event.target) &&
-      event.target.className !== "sidebar-open-btn"
-    ) {
-      closeSidebar();
-    }
-  };
+  // const handleClickOutside = (event) => {
+  //   if (
+  //     navbarRef.current &&
+  //     !navbarRef.current.contains(event.target) &&
+  //     event.target.className !== "sidebar-open-btn"
+  //   ) {
+  //     closeSidebar();
+  //   }
+  // };
 
   // Função para lidar com o clique em um item do menu
   const handleMenuItemClick = (event) => {
@@ -90,12 +88,12 @@ const Sidebar = () => {
     }));
   };
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, []);
 
   return (
     <nav

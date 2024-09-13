@@ -1,8 +1,8 @@
 import "./styles.css"; // Importa o arquivo CSS
-import React, { useRef } from "react";
+import { useRef } from "react";
 import api from "../../services/api";
-import { Link, useNavigate } from "react-router-dom"
-import { PrivateRoute } from "../../privateRoute";
+import {useNavigate } from "react-router-dom"
+// import { PrivateRoute } from "../../privateRoute";
 
 const Login = () => {
     const emailRef = useRef();
@@ -26,7 +26,7 @@ const Login = () => {
         } catch (err) {
             alert("Senha ou Email incorretos")
         }
-    };
+    }
 
     return (
         <div className="formLogin">

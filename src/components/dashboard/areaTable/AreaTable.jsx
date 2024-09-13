@@ -1,4 +1,3 @@
-import React from "react";
 // import AreaTableAction from "./AreaTableAction";
 import Loading from "../../loading/Loading"; // Importe o componente de loading
 import "./AreaTable.scss";
