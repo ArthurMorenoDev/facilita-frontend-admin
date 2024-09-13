@@ -1,5 +1,5 @@
 // Importar os ícones do Material Design da biblioteca react-icons
-import { MdHistory, MdReceipt, MdAdd, MdSearch } from 'react-icons/md';
+import { MdHistory, MdReceipt, MdSearch } from 'react-icons/md';
 import "./styles.css";
 import { useState } from 'react';
 

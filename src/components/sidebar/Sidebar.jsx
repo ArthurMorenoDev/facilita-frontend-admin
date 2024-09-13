@@ -16,7 +16,6 @@ import {
   MdKeyboardArrowRight
 } from "react-icons/md";
 import { Link } from "react-router-dom";
-
 import "./Sidebar.scss";
 import { SidebarContext } from "../../context/SidebarContext";
 
@@ -54,14 +53,11 @@ const Sidebar = () => {
     if (activeMenuItemRef.current) {
       activeMenuItemRef.current.classList.remove("active");
     }
-
     // Adiciona a classe 'active' ao item clicado
     event.currentTarget.classList.add("active");
-
     // Atualiza a ref para o novo item ativo
     activeMenuItemRef.current = event.currentTarget;
   };
-
   // Função para lidar com o clique no dropdown
   const toggleDropdown = (dropdown) => {
     setDropdownsOpen((prev) => ({
@@ -78,7 +74,6 @@ const Sidebar = () => {
       dropdownBonus: false // Fecha o dropdown "Acomp Bônus" quando abre o "Controle de Carga"
     }));
   };
-
   // Função específica para o dropdown "Acomp Bônus"
   const toggleBonusDropdown = () => {
     setDropdownsOpen((prev) => ({
@@ -87,14 +82,12 @@ const Sidebar = () => {
       dropdownControleCarga: false // Fecha o dropdown "Controle de Carga" quando abre o "Acomp Bônus"
     }));
   };
-
   // useEffect(() => {
   //   document.addEventListener("mousedown", handleClickOutside);
   //   return () => {
   //     document.removeEventListener("mousedown", handleClickOutside);
   //   };
   // }, []);
-
   return (
     <nav
       className={`sidebar ${isSidebarOpen ? "sidebar-show" : ""}`}
@@ -260,7 +253,6 @@ const Sidebar = () => {
                 </li>
               </ul>
             </li>
-
             {/* Segundo Dropdown */}
             <li className="menu-item">
               <div className="menu-link" onClick={() => toggleDropdown('dropdown2')}>
@@ -299,7 +291,6 @@ const Sidebar = () => {
                 </li>
               </ul>
             </li>
-
             {/* Terceiro Dropdown */}
             <li className="menu-item">
               <div className="menu-link" onClick={() => toggleDropdown('dropdown3')}>
