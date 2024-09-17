@@ -18,7 +18,8 @@ const Login = () => {
                 email: emailRef.current.value,
                 password: passwordRef.current.value
             })
-            localStorage.setItem('token', token)
+            localStorage.setItem('token', token.token)
+            localStorage.setItem('userId', token.userId)
             console.log(token)
 
             navigate('/dashboard')
