@@ -10,8 +10,16 @@ const formatDate = (dateString) => {
 };
 
 const Tables = () => {
+  const [userName, setUserName] = useState("");
   const [reembolsos, setReembolso] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const storedUserName = localStorage.getItem("userName");
+    if (storedUserName) {
+      setUserName(storedUserName);
+    }
+  }, []);
 
   const getReembolso = async () => {
     try {
@@ -56,8 +64,10 @@ const filteredData = res.data.data.map((item) => ({
   }, []);
 
   return (
+
+    
     <div className="content-area">
-      
+      <h2>Solicitações de:{userName} </h2>      
       <TabelaReembolso data={reembolsos} loading={loading} />
     </div>
   );

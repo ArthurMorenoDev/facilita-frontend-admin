@@ -18,9 +18,15 @@ const Login = () => {
                 email: emailRef.current.value,
                 password: passwordRef.current.value
             })
-            localStorage.setItem('token', token.token)
-            localStorage.setItem('userId', token.userId)
-            console.log(token)
+            
+            localStorage.setItem('token', token.token);
+
+            // Salvar as informações do usuário no localStorage
+            localStorage.setItem('userId', token.user.id);
+            localStorage.setItem('userName', token.user.name);
+            localStorage.setItem('userEmail', token.user.email);
+            localStorage.setItem('userDepartament', token.user.departament);
+
 
             navigate('/dashboard')
 

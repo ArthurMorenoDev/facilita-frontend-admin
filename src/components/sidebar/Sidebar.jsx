@@ -1,4 +1,4 @@
-import { useState, useContext, useRef } from "react";
+import { useState, useContext, useRef, useEffect } from "react";
 // import { ThemeContext } from "../../context/ThemeContext";
 // import { LIGHT_THEME } from "../../constants/themeConstants";
 import {
@@ -23,9 +23,11 @@ const Sidebar = () => {
   // const { theme } = useContext(ThemeContext);
   const { isSidebarOpen, closeSidebar } = useContext(SidebarContext);
   const navbarRef = useRef(null);
-
   // Ref para acompanhar o item de menu atualmente ativo
   const activeMenuItemRef = useRef(null);
+
+   // Estado para armazenar o nome do usuário
+   const [userName, setUserName] = useState("");
 
   // Estado para controlar os dropdowns
   const [dropdownsOpen, setDropdownsOpen] = useState({
@@ -35,6 +37,13 @@ const Sidebar = () => {
     dropdownBonus: false,
     dropdownControleCarga: false
   });
+
+  useEffect(() => {
+    const storedUserName = localStorage.getItem("userName");
+    if (storedUserName) {
+      setUserName(storedUserName);
+    }
+  }, []);
 
   // Função para fechar a barra lateral quando clicar fora da área da barra lateral
   // const handleClickOutside = (event) => {
@@ -349,7 +358,7 @@ const Sidebar = () => {
                 <span className="menu-link-text">Logout</span>
               </Link>
             </li>
-            <li className="userName">logado como:</li>
+            <li className="userName">Logado como: {userName}</li>
           </ul>
         </div>
       </div>
