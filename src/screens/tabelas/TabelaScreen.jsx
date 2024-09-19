@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useUser } from "../../context/UserContext";
 // import Comission from "../../components/comission/Comission";
 import TabelaReembolso from "../../components/Tabela-Reembolso/TabelaReembolso";
 
@@ -10,7 +11,7 @@ const formatDate = (dateString) => {
 };
 
 const Tables = () => {
-  const [userName, setUserName] = useState("");
+  const {user} = useUser();
   const [reembolsos, setReembolso] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -67,7 +68,7 @@ const filteredData = res.data.data.map((item) => ({
 
     
     <div className="content-area">
-      <h2>Solicitações de:{userName} </h2>      
+      <h2>Solicitações de user {user?.name} </h2>      
       <TabelaReembolso data={reembolsos} loading={loading} />
     </div>
   );

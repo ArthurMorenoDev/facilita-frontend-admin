@@ -1,37 +1,37 @@
 import "./styles.css"; // Importa o arquivo CSS
 import { useRef } from "react";
 import api from "../../services/api";
-import {useNavigate } from "react-router-dom"
-// import { PrivateRoute } from "../../privateRoute";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../../context/UserContext"; // Importa o contexto
 
 const Login = () => {
     const emailRef = useRef();
     const passwordRef = useRef();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const { setUser } = useUser(); // Hook para acessar o contexto e definir o usuário
 
     async function handleSubmit(event) {
-        event.preventDefault()
+        event.preventDefault();
 
         try {
-            const { data: token } = await api.post('/login', {
-
+            const { data: res } = await api.post('/login', {
                 email: emailRef.current.value,
-                password: passwordRef.current.value
-            })
+                password: passwordRef.current.value,
+            });
             
-            localStorage.setItem('token', token.token);
 
-            // Salvar as informações do usuário no localStorage
-            localStorage.setItem('userId', token.user.id);
-            localStorage.setItem('userName', token.user.name);
-            localStorage.setItem('userEmail', token.user.email);
-            localStorage.setItem('userDepartament', token.user.departament);
+            // Armazena os dados do usuário no contexto
+            setUser({
+                id: res.user.id,
+                name: res.user.name,
+                email: res.user.email,
+                departament: res.user.departament,
+                tabulacoes: res.user.tabulacoes,
+            });
 
-
-            navigate('/dashboard')
-
+            navigate('/dashboard');
         } catch (err) {
-            alert("Senha ou Email incorretos")
+            alert("Senha ou Email incorretos");
         }
     }
 
