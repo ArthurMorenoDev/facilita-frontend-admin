@@ -22,7 +22,7 @@ import { SidebarContext } from "../../context/SidebarContext";
 
 const Sidebar = () => {
   // const { theme } = useContext(ThemeContext);
-  const {user} = useUser();
+  const {user,logout} = useUser();
   const { isSidebarOpen, closeSidebar } = useContext(SidebarContext);
   const navbarRef = useRef(null);
   // Ref para acompanhar o item de menu atualmente ativo
@@ -39,6 +39,15 @@ const Sidebar = () => {
     dropdownBonus: false,
     dropdownControleCarga: false
   });
+
+   // Função para confirmar o logout
+   const handleLogout = () => {
+    const confirmed = window.confirm("Tem certeza que deseja sair?");
+    if (confirmed) {
+      logout();
+      window.location.reload(); // Recarrega a página após o logout
+    }
+  };
 
   
 
@@ -348,12 +357,12 @@ const Sidebar = () => {
               </Link>
             </li>
             <li className="menu-item">
-              <Link to="/" className="menu-link" onClick={handleMenuItemClick}>
+            <button className="menu-link" onClick={handleLogout}>
                 <span className="menu-link-icon">
                   <MdOutlineLogout size={20} />
                 </span>
                 <span className="menu-link-text">Logout</span>
-              </Link>
+                </button>
             </li>
             <li className="userName">Logado como:{user?.name}</li>
           </ul>

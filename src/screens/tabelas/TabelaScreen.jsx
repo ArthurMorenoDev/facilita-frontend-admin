@@ -15,12 +15,7 @@ const Tables = () => {
   const [reembolsos, setReembolso] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const storedUserName = localStorage.getItem("userName");
-    if (storedUserName) {
-      setUserName(storedUserName);
-    }
-  }, []);
+  
 
   const getReembolso = async () => {
     try {

@@ -19,6 +19,8 @@ const Login = () => {
                 password: passwordRef.current.value,
             });
             
+            // Salva o token JWT no localStorage
+            localStorage.setItem('token', res.token);
 
             // Armazena os dados do usuário no contexto
             setUser({

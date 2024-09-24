@@ -2,10 +2,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import AreaTable from "../../components/dashboard/areaTable/AreaTable";
 import FormEdit from "../../components/formEdit/FormEdit";
+import { useUser } from "../../context/UserContext";
 
 const Tabulacoes = () => {
+
+  const {user} = useUser();
   const [tabulacoes, setTabulacoes] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [showAll, setShowAll] = useState(false); // Estado para alternar entre tabulações do usuário e todas
   const [editingItem, setEditingItem] = useState(null); // Estado para o item sendo editado
 
   // Função para obter as tabulações
@@ -26,6 +30,32 @@ const Tabulacoes = () => {
       setLoading(false);
     }
   };
+  // Função para obter as tabulações do usuário logado
+  const getTabulacoesUserId = async () => {
+    const userId = user?.id; // Obtém o ID do usuário do contexto
+    if (!userId) {
+      console.error("ID do usuário não encontrado");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const token = localStorage.getItem("token");
+      const res = await axios.get(`http://localhost:3000/tabulacao/usuario/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setTabulacoes(res.data.data || []);
+      console.log(res.data);
+    } catch (error) {
+      console.error("Erro ao buscar os dados:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
 
   // Função para deletar uma tabulação
   const onDelete = async (id) => {
@@ -83,26 +113,51 @@ const Tabulacoes = () => {
     setEditingItem(item); // Define o item a ser editado
   };
 
-  useEffect(() => {
-    getTabulacoes();
-  }, []);
+ // Função para obter todas as tabulações
+  // const getAllTabulacoes = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const token = localStorage.getItem("token");
 
+  //     const res = await axios.get("http://localhost:3000/tabulacao", {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
+  //     setTabulacoes(res.data.data || []); // Armazena todas as tabulações
+  //   } catch (error) {
+  //     console.error("Erro ao buscar todas as tabulações:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  // Função para alternar entre todas as tabulações e as do usuário
+  const toggleTabulacoes = () => {
+    setShowAll((prevShowAll) => !prevShowAll); // Alterna entre exibir todas ou apenas as do usuário
+  };
+
+  useEffect(() => {
+    if (user && user.id) {
+      if (showAll) {
+        getTabulacoes(); // Busca todas as tabulações
+      } else {
+        getTabulacoesUserId(); // Busca apenas as tabulações do usuário
+      }
+    }
+  }, [user, showAll]); // Reexecuta a busca quando o usuário ou o estado de exibição mudar
   return (
-    <div className="content-area">
-      {/* Renderiza o FormEdit apenas se houver um item em edição */}
-      {editingItem && (
-        <FormEdit
-          item={editingItem}
-          onSave={(updatedData) => onEdit(editingItem.id, updatedData)} // Chama a função onEdit com os dados atualizados
-          onCancel={() => setEditingItem(null)} // Fecha o formulário ao cancelar
-        />
+    <div>
+      <button onClick={toggleTabulacoes}>
+        {showAll ? "Mostrar Minhas Tabulações" : "Mostrar Todas as Tabulações"}
+      </button>
+
+      {/* Renderiza a tabela ou uma mensagem de carregamento */}
+      {loading ? (
+        <p>Carregando...</p>
+      ) : (
+        <AreaTable data={tabulacoes} />
       )}
-      <AreaTable
-        data={tabulacoes}
-        loading={loading}
-        onDelete={onDelete} // Passa a função onDelete para a tabela
-        onEdit={startEdit} // Passa a função para iniciar a edição
-      />
     </div>
   );
 };

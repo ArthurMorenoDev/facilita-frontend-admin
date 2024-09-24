@@ -23,8 +23,16 @@ export const UserProvider = ({ children }) => {
         } 
     }, [user]);
 
+     // Função para realizar o logout
+     const logout = () => {
+        setUser(null); // Reseta o estado do usuário
+        localStorage.removeItem('token'); // Remove o token do localStorage
+        localStorage.removeItem('user'); 
+    };
+
+
     return (
-        <UserContext.Provider value={{ user, setUser }}>
+        <UserContext.Provider value={{ user, setUser ,logout}}>
             {children}
         </UserContext.Provider>
     );
