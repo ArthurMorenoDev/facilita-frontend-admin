@@ -63,7 +63,7 @@ const filteredData = res.data.data.map((item) => ({
 
     
     <div className="content-area">
-      <h2>Solicitações de user {user?.name} </h2>      
+      <h2>Solicitações de {user?.name} </h2>      
       <TabelaReembolso data={reembolsos} loading={loading} />
     </div>
   );
