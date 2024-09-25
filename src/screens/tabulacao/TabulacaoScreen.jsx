@@ -1,25 +1,26 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Cookies from "js-cookie"; // Importando a biblioteca js-cookie
 import AreaTable from "../../components/dashboard/areaTable/AreaTable";
-import FormEdit from "../../components/formEdit/FormEdit";
 import { useUser } from "../../context/UserContext";
 
 const Tabulacoes = () => {
-
-  const {user} = useUser();
+  const { user } = useUser();
   const [tabulacoes, setTabulacoes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showAll, setShowAll] = useState(false); // Estado para alternar entre tabulações do usuário e todas
   const [editingItem, setEditingItem] = useState(null); // Estado para o item sendo editado
 
+  // Configurar axios para enviar cookies
+  axios.defaults.withCredentials = true;
+
   // Função para obter as tabulações
   const getTabulacoes = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem("token");
       const res = await axios.get("http://localhost:3000/tabulacao", {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${Cookies.get("token")}`, // Obtendo o token dos cookies
         },
       });
       setTabulacoes(res.data.data || []);
@@ -30,6 +31,7 @@ const Tabulacoes = () => {
       setLoading(false);
     }
   };
+
   // Função para obter as tabulações do usuário logado
   const getTabulacoesUserId = async () => {
     const userId = user?.id; // Obtém o ID do usuário do contexto
@@ -40,10 +42,9 @@ const Tabulacoes = () => {
 
     try {
       setLoading(true);
-      const token = localStorage.getItem("token");
       const res = await axios.get(`http://localhost:3000/tabulacao/usuario/${userId}`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${Cookies.get("token")}`, // Obtendo o token dos cookies
         },
       });
       setTabulacoes(res.data.data || []);
@@ -55,16 +56,13 @@ const Tabulacoes = () => {
     }
   };
 
-
-
   // Função para deletar uma tabulação
   const onDelete = async (id) => {
     try {
       setLoading(true);
-      const token = localStorage.getItem("token");
       await axios.delete(`http://localhost:3000/tabulacao/${id}`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${Cookies.get("token")}`, // Obtendo o token dos cookies
         },
       });
       setTabulacoes((prevTabulacoes) =>
@@ -83,13 +81,12 @@ const Tabulacoes = () => {
   const onEdit = async (id, updatedData) => {
     try {
       setLoading(true);
-      const token = localStorage.getItem("token");
-      const res = await axios.put(
+      const res = await axios.patch(
         `http://localhost:3000/tabulacao/${id}`,
         updatedData,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${Cookies.get("token")}`, // Obtendo o token dos cookies
           },
         }
       );
@@ -113,25 +110,6 @@ const Tabulacoes = () => {
     setEditingItem(item); // Define o item a ser editado
   };
 
- // Função para obter todas as tabulações
-  // const getAllTabulacoes = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const token = localStorage.getItem("token");
-
-  //     const res = await axios.get("http://localhost:3000/tabulacao", {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-  //     setTabulacoes(res.data.data || []); // Armazena todas as tabulações
-  //   } catch (error) {
-  //     console.error("Erro ao buscar todas as tabulações:", error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
   // Função para alternar entre todas as tabulações e as do usuário
   const toggleTabulacoes = () => {
     setShowAll((prevShowAll) => !prevShowAll); // Alterna entre exibir todas ou apenas as do usuário
@@ -146,6 +124,7 @@ const Tabulacoes = () => {
       }
     }
   }, [user, showAll]); // Reexecuta a busca quando o usuário ou o estado de exibição mudar
+
   return (
     <div>
       <button onClick={toggleTabulacoes}>

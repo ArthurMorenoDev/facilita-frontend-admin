@@ -8,19 +8,20 @@ const Login = () => {
     const emailRef = useRef();
     const passwordRef = useRef();
     const navigate = useNavigate();
-    const { setUser } = useUser(); // Hook para acessar o contexto e definir o usuário
+    const { setUser, setToken } = useUser(); // Hook para acessar o contexto e definir o usuário e o token
 
     async function handleSubmit(event) {
         event.preventDefault();
 
         try {
+            // Faz a requisição de login com `withCredentials` para enviar e receber cookies
             const { data: res } = await api.post('/login', {
                 email: emailRef.current.value,
                 password: passwordRef.current.value,
-            });
+            }, { withCredentials: true }); // Importante para permitir cookies
             
-            // Salva o token JWT no localStorage
-            localStorage.setItem('token', res.token);
+            // Armazena o token no contexto
+            setToken(res.token); // Armazena o token
 
             // Armazena os dados do usuário no contexto
             setUser({
@@ -31,6 +32,7 @@ const Login = () => {
                 tabulacoes: res.user.tabulacoes,
             });
 
+            // Navega para a dashboard após o login bem-sucedido
             navigate('/dashboard');
         } catch (err) {
             alert("Senha ou Email incorretos");
