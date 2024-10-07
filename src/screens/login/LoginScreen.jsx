@@ -14,14 +14,17 @@ const Login = () => {
         event.preventDefault();
 
         try {
-            // Faz a requisição de login com `withCredentials` para enviar e receber cookies
+            // Faz a requisição de login
             const { data: res } = await api.post('/login', {
                 email: emailRef.current.value,
                 password: passwordRef.current.value,
-            }, { withCredentials: true }); // Importante para permitir cookies
-            
+            });
+
+            // Armazena o token no localStorage
+            localStorage.setItem('token', res.token);
+
             // Armazena o token no contexto
-            setToken(res.token); // Armazena o token
+            setToken(res.token);
 
             // Armazena os dados do usuário no contexto
             setUser({
@@ -43,7 +46,7 @@ const Login = () => {
         <div className="formLogin">
             <div>
                 <div className="logo-container">
-                    <img src="../src/assets/logo.PNG" className="logo" alt="Logo" />
+                    <img src="/assets/logo.png" className="logo" alt="Logo" />
                 </div>
                 <div className="form-container">
                     <h1 className="form-title">Login</h1>

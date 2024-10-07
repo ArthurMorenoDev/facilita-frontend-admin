@@ -1,8 +1,8 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie"; // Importando a biblioteca js-cookie
 import AreaTable from "../../components/dashboard/areaTable/AreaTable";
 import { useUser } from "../../context/UserContext";
+import api from "../../services/api"; // Importando o serviço api
 
 const Tabulacoes = () => {
   const { user } = useUser();
@@ -11,20 +11,17 @@ const Tabulacoes = () => {
   const [showAll, setShowAll] = useState(false); // Estado para alternar entre tabulações do usuário e todas
   const [editingItem, setEditingItem] = useState(null); // Estado para o item sendo editado
 
-  // Configurar axios para enviar cookies
-  axios.defaults.withCredentials = true;
-
-  // Função para obter as tabulações
+  // Função para obter todas as tabulações
   const getTabulacoes = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:3000/tabulacao", {
+      const { data: res } = await api.get("/tabulacao", {
         headers: {
           Authorization: `Bearer ${Cookies.get("token")}`, // Obtendo o token dos cookies
         },
       });
-      setTabulacoes(res.data.data || []);
-      console.log(res.data);
+      setTabulacoes(res.data || []);
+      console.log(res);
     } catch (error) {
       console.error("Erro ao buscar os dados:", error);
     } finally {
@@ -42,13 +39,13 @@ const Tabulacoes = () => {
 
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:3000/tabulacao/usuario/${userId}`, {
+      const { data: res } = await api.get(`/tabulacao/usuario/${userId}`, {
         headers: {
           Authorization: `Bearer ${Cookies.get("token")}`, // Obtendo o token dos cookies
         },
       });
-      setTabulacoes(res.data.data || []);
-      console.log(res.data);
+      setTabulacoes(res.data || []);
+      console.log(res);
     } catch (error) {
       console.error("Erro ao buscar os dados:", error);
     } finally {
@@ -60,7 +57,7 @@ const Tabulacoes = () => {
   const onDelete = async (id) => {
     try {
       setLoading(true);
-      await axios.delete(`http://localhost:3000/tabulacao/${id}`, {
+      const { data: res } = await api.delete(`/tabulacao/${id}`, {
         headers: {
           Authorization: `Bearer ${Cookies.get("token")}`, // Obtendo o token dos cookies
         },
@@ -68,7 +65,7 @@ const Tabulacoes = () => {
       setTabulacoes((prevTabulacoes) =>
         prevTabulacoes.filter((tabulacao) => tabulacao.id !== id)
       );
-      console.log(`Tabulação com id ${id} deletada com sucesso.`);
+      console.log(res);
       alert("Tabulação deletada com sucesso");
     } catch (error) {
       console.error("Erro ao deletar a tabulação:", error);
@@ -81,22 +78,18 @@ const Tabulacoes = () => {
   const onEdit = async (id, updatedData) => {
     try {
       setLoading(true);
-      const res = await axios.patch(
-        `http://localhost:3000/tabulacao/${id}`,
-        updatedData,
-        {
-          headers: {
-            Authorization: `Bearer ${Cookies.get("token")}`, // Obtendo o token dos cookies
-          },
-        }
-      );
+      const { data: res } = await api.patch(`/tabulacao/${id}`, updatedData, {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("token")}`, // Obtendo o token dos cookies
+        },
+      });
       // Atualiza a lista com o item editado
       setTabulacoes((prevTabulacoes) =>
         prevTabulacoes.map((tabulacao) =>
-          tabulacao.id === id ? res.data.data : tabulacao
+          tabulacao.id === id ? res.data : tabulacao
         )
       );
-      console.log(`Tabulação com id ${id} editada com sucesso.`);
+      console.log(res);
       setEditingItem(null); // Fecha o formulário de edição após a atualização
     } catch (error) {
       console.error("Erro ao editar a tabulação:", error);

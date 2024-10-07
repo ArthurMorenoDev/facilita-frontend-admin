@@ -5,7 +5,7 @@
     align-items: center;
     justify-content: center;
     background-size: cover;
-    background-image: url('../src/assets/imagemFundo.png');
+    background-image: url('/assets/imagemFundo.png');
 }
 
 /* Estilização do formulário */

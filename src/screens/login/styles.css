@@ -6,7 +6,7 @@
     justify-content: center;
     background-size: cover;
     background-position: center;
-    background-image: url('../src/assets/imagemFundo.png');
+    background-image: url('/assets/imagemFundo.png');
 }
 
 /* Container da logo */

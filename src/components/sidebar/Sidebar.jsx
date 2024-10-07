@@ -110,7 +110,7 @@ const Sidebar = () => {
     >
       <div className="sidebar-top">
         <div className="sidebar-brand">
-          <img src="../src/assets/logo.PNG" className="logoMarca" alt="Logo" />
+          <img src="/assets/logo.png" className="logoMarca" alt="Logo" />
           <button className="sidebar-close-btn" onClick={closeSidebar}>
             <MdOutlineClose size={24} />
           </button>
