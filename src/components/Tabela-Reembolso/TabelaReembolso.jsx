@@ -1,7 +1,8 @@
-// Importar os ícones do Material Design da biblioteca react-icons
 import { MdHistory, MdReceipt, MdSearch } from 'react-icons/md';
 import "./styles.css";
 import { useState } from 'react';
+import api from '../../services/api'; // Supondo que você já tenha configurado a instância do axios
+import { useUser } from "../../context/UserContext";
 
 const TABLE_HEADS = [
   "Solicitação",
@@ -19,10 +20,12 @@ const WEEK_OPTIONS = ["Semana 1", "Semana 2", "Semana 3"];
 const STATUS_OPTIONS = ["Pendente", "Em andamento", "Aprovado"];
 const ROTA_OPTIONS = ["Rota 1", "Rota 2", "Rota 3"];
 
-const TabelaReembolso = ({ data, loading }) => {
+const TabelaReembolso = ({ data, loading, token }) => {
   const [weekFilter, setWeekFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [rotaFilter, setRotaFilter] = useState('');
+  const [protocoloFilter, setProtocoloFilter] = useState('');
+  const { user } = useUser();
 
   // Estado para exibir o formulário de solicitação
   const [showForm, setShowForm] = useState(false);
@@ -36,6 +39,7 @@ const TabelaReembolso = ({ data, loading }) => {
   const handleWeekChange = (e) => setWeekFilter(e.target.value);
   const handleStatusChange = (e) => setStatusFilter(e.target.value);
   const handleRotaChange = (e) => setRotaFilter(e.target.value);
+  const handleProtocoloChange = (e) => setProtocoloFilter(e.target.value);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -45,25 +49,51 @@ const TabelaReembolso = ({ data, loading }) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  // Função para enviar os dados do formulário
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Dados enviados:", formData);
-    // Adicionar a lógica para enviar os dados ao servidor
-    // Após o envio, você pode esconder o formulário e limpar os dados
-    setShowForm(false);
-    setFormData({
-      dataInicio: '',
-      dataFim: '',
-      tipoRota: '',
-      observacao: ''
-    });
+
+    try {
+      // Fazer a requisição POST usando api configurada com Axios
+      const response = await api.post('/reembolso', { // Altere a rota para a correta
+        usuario_solicitante:user.name,
+        dataInicio: formData.dataInicio,
+        dataFim: formData.dataFim,
+        tipoRota: formData.tipoRota,
+        observacao: formData.observacao,
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}`, // Incluindo o token no cabeçalho
+        }
+      });
+
+      if (response.status === 201) {
+        console.log("Resposta do servidor:", response.data);
+
+        // Fechar o formulário e limpar os campos após o sucesso
+        setShowForm(false);
+        setFormData({
+          usuariousuario_solicitante:'',
+          dataInicio: '',
+          dataFim: '',
+          tipoRota: '',
+          observacao: ''
+        });
+      } else {
+        console.error("Erro ao enviar os dados:", response.status);
+      }
+    } catch (error) {
+      console.error("Erro na requisição:", error);
+    }
   };
 
+  // Função de filtragem dos dados
   const filteredData = data?.filter((item) => {
     return (
       (weekFilter ? item.Semana === weekFilter : true) &&
       (statusFilter ? item.Status === statusFilter : true) &&
-      (rotaFilter ? item.Rota === rotaFilter : true)
+      (rotaFilter ? item.Rota === rotaFilter : true) &&
+      (protocoloFilter ? item.id === protocoloFilter : true)
     );
   });
 
@@ -73,7 +103,7 @@ const TabelaReembolso = ({ data, loading }) => {
 
   // Função para lidar com o clique do ícone de Histórico
   const handleHistoricoClick = (id) => {
-    console.log(`Histórico clicado para a solicitação ${id}`);
+    console.log(`Histórico clicado para a solicitação ${id}`,user.name);
     // Lógica para exibir o histórico
   };
 
@@ -178,12 +208,12 @@ const TabelaReembolso = ({ data, loading }) => {
           </select>
         </label>
         <label>
-          protocolo:
-          <select value={rotaFilter} onChange={handleRotaChange}>
-            <option value="">Todas</option>
-            {ROTA_OPTIONS.map((id, index) => (
-              <option key={index} value={id}>
-                {id}
+          Protocolo:
+          <select value={protocoloFilter} onChange={handleProtocoloChange}>
+            <option value="">Todos</option>
+            {data?.map((item, index) => (
+              <option key={index} value={item.id}>
+                {item.id}
               </option>
             ))}
           </select>

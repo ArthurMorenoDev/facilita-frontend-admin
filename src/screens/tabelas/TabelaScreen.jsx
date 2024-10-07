@@ -6,8 +6,9 @@ import api from "../../services/api"; // Importando o serviço api
 
 // Função utilitária para formatar a data
 const formatDate = (dateString) => {
+  if (!dateString) return "N/A"; // Retornar "N/A" se a data for nula ou indefinida
   const date = new Date(dateString);
-  return date.toLocaleDateString('pt-BR'); // Formato dd/mm/aaaa
+  return isNaN(date) ? "N/A" : date.toLocaleDateString('pt-BR'); // Formato dd/mm/aaaa
 };
 
 // Função utilitária para formatar o valor no estilo monetário
