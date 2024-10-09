@@ -1,7 +1,7 @@
 import { MdHistory, MdReceipt, MdSearch } from 'react-icons/md';
 import "./styles.css";
 import { useState } from 'react';
-import api from '../../services/api'; // Supondo que você já tenha configurado a instância do axios
+import api from '../../services/api';
 import { useUser } from "../../context/UserContext";
 
 const TABLE_HEADS = [
@@ -20,14 +20,12 @@ const WEEK_OPTIONS = ["Semana 1", "Semana 2", "Semana 3"];
 const STATUS_OPTIONS = ["Pendente", "Em andamento", "Aprovado"];
 const ROTA_OPTIONS = ["Rota 1", "Rota 2", "Rota 3"];
 
-const TabelaReembolso = ({ data, loading, token }) => {
+const TabelaReembolso = ({ data, loading, token, onUpdate }) => {
+  const { user } = useUser();
   const [weekFilter, setWeekFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [rotaFilter, setRotaFilter] = useState('');
   const [protocoloFilter, setProtocoloFilter] = useState('');
-  const { user } = useUser();
-
-  // Estado para exibir o formulário de solicitação
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
     dataInicio: '',
@@ -36,10 +34,15 @@ const TabelaReembolso = ({ data, loading, token }) => {
     observacao: ''
   });
 
-  const handleWeekChange = (e) => setWeekFilter(e.target.value);
-  const handleStatusChange = (e) => setStatusFilter(e.target.value);
-  const handleRotaChange = (e) => setRotaFilter(e.target.value);
-  const handleProtocoloChange = (e) => setProtocoloFilter(e.target.value);
+  // Função de filtragem dos dados
+  const filteredData = data?.filter((item) => {
+    return (
+      (weekFilter ? item.Semana === weekFilter : true) &&
+      (statusFilter ? item.Status === statusFilter : true) &&
+      (rotaFilter ? item.Rota === rotaFilter : true) &&
+      (protocoloFilter ? item.id === protocoloFilter : true)
+    );
+  });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -54,9 +57,8 @@ const TabelaReembolso = ({ data, loading, token }) => {
     e.preventDefault();
 
     try {
-      // Fazer a requisição POST usando api configurada com Axios
-      const response = await api.post('/reembolso', { // Altere a rota para a correta
-        usuario_solicitante:user.name,
+      const response = await api.post('/reembolso', {
+        usuario_solicitante: user.name,
         dataInicio: formData.dataInicio,
         dataFim: formData.dataFim,
         tipoRota: formData.tipoRota,
@@ -73,12 +75,14 @@ const TabelaReembolso = ({ data, loading, token }) => {
         // Fechar o formulário e limpar os campos após o sucesso
         setShowForm(false);
         setFormData({
-          usuariousuario_solicitante:'',
           dataInicio: '',
           dataFim: '',
           tipoRota: '',
           observacao: ''
         });
+
+        // Atualizar a página após o post
+        window.location.reload(); // Adiciona a recarga da página após sucesso
       } else {
         console.error("Erro ao enviar os dados:", response.status);
       }
@@ -87,40 +91,24 @@ const TabelaReembolso = ({ data, loading, token }) => {
     }
   };
 
-  // Função de filtragem dos dados
-  const filteredData = data?.filter((item) => {
-    return (
-      (weekFilter ? item.Semana === weekFilter : true) &&
-      (statusFilter ? item.Status === statusFilter : true) &&
-      (rotaFilter ? item.Rota === rotaFilter : true) &&
-      (protocoloFilter ? item.id === protocoloFilter : true)
-    );
-  });
+  const handleHistoricoClick = (id) => {
+    console.log(`Histórico clicado para a solicitação ${id}`, user.name);
+  };
+
+  const handleDespesasClick = (id) => {
+    console.log(`Despesas clicado para a solicitação ${id}`);
+  };
 
   if (loading) {
     return <div>Carregando...</div>;
   }
 
-  // Função para lidar com o clique do ícone de Histórico
-  const handleHistoricoClick = (id) => {
-    console.log(`Histórico clicado para a solicitação ${id}`,user.name);
-    // Lógica para exibir o histórico
-  };
-
-  // Função para lidar com o clique do ícone de Despesas
-  const handleDespesasClick = (id) => {
-    console.log(`Despesas clicado para a solicitação ${id}`);
-    // Lógica para exibir as despesas
-  };
-
   return (
     <section className="content-area-table">
-      {/* Botão para mostrar o formulário */}
       <button className="btn-show-form" onClick={() => setShowForm(!showForm)}>
         Solicitar Nova Rota
       </button>
 
-      {/* Formulário de Solicitação */}
       {showForm && (
         <div className="request-form">
           <h3>Solicitar Nova Rota</h3>
@@ -176,7 +164,7 @@ const TabelaReembolso = ({ data, loading, token }) => {
       <div className="filter-form">
         <label>
           Semana:
-          <select value={weekFilter} onChange={handleWeekChange}>
+          <select value={weekFilter} onChange={(e) => setWeekFilter(e.target.value)}>
             <option value="">Todas</option>
             {WEEK_OPTIONS.map((week, index) => (
               <option key={index} value={week}>
@@ -187,7 +175,7 @@ const TabelaReembolso = ({ data, loading, token }) => {
         </label>
         <label>
           Status:
-          <select value={statusFilter} onChange={handleStatusChange}>
+          <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
             <option value="">Todos</option>
             {STATUS_OPTIONS.map((status, index) => (
               <option key={index} value={status}>
@@ -198,7 +186,7 @@ const TabelaReembolso = ({ data, loading, token }) => {
         </label>
         <label>
           Rota:
-          <select value={rotaFilter} onChange={handleRotaChange}>
+          <select value={rotaFilter} onChange={(e) => setRotaFilter(e.target.value)}>
             <option value="">Todas</option>
             {ROTA_OPTIONS.map((rota, index) => (
               <option key={index} value={rota}>
@@ -209,7 +197,7 @@ const TabelaReembolso = ({ data, loading, token }) => {
         </label>
         <label>
           Protocolo:
-          <select value={protocoloFilter} onChange={handleProtocoloChange}>
+          <select value={protocoloFilter} onChange={(e) => setProtocoloFilter(e.target.value)}>
             <option value="">Todos</option>
             {data?.map((item, index) => (
               <option key={index} value={item.id}>
@@ -218,8 +206,7 @@ const TabelaReembolso = ({ data, loading, token }) => {
             ))}
           </select>
         </label>
-        {/* Botão de pesquisa com ícone de lupa */}
-        <button className="btn-search" onClick={() => console.log('Pesquisa acionada')}>
+        <button className="btn-search">
           <MdSearch size={24} />
         </button>
       </div>
@@ -228,13 +215,13 @@ const TabelaReembolso = ({ data, loading, token }) => {
         <table>
           <thead>
             <tr>
-              {TABLE_HEADS?.map((th, index) => (
+              {TABLE_HEADS.map((th, index) => (
                 <th key={index}>{th}</th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {filteredData?.map((dataItem) => (
+            {filteredData.map((dataItem) => (
               <tr key={dataItem.id}>
                 <td className='id-cell'>{dataItem.id}</td>
                 <td>{dataItem.Data}</td>
@@ -242,7 +229,6 @@ const TabelaReembolso = ({ data, loading, token }) => {
                 <td>{dataItem.Rota}</td>
                 <td>{dataItem.Status}</td>
                 <td>{dataItem.Valor}</td>
-                {/* Ícone de Histórico */}
                 <td className="icon-cell">
                   <MdHistory
                     onClick={() => handleHistoricoClick(dataItem.id)}
@@ -250,7 +236,6 @@ const TabelaReembolso = ({ data, loading, token }) => {
                     title="Ver Histórico"
                   />
                 </td>
-                {/* Ícone de Despesas */}
                 <td className="icon-cell">
                   <MdReceipt
                     onClick={() => handleDespesasClick(dataItem.id)}
