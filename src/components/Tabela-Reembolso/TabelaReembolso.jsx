@@ -15,7 +15,6 @@ const TABLE_HEADS = [
   "Despesas"
 ];
 
-// Dados fictícios para dropdowns
 const WEEK_OPTIONS = ["Semana 1", "Semana 2", "Semana 3"];
 const STATUS_OPTIONS = ["Pendente", "Em andamento", "Aprovado"];
 const ROTA_OPTIONS = ["Rota 1", "Rota 2", "Rota 3"];
@@ -28,11 +27,16 @@ const TabelaReembolso = ({ data, loading, token, onUpdate }) => {
   const [protocoloFilter, setProtocoloFilter] = useState('');
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
+    usuario_solicitante: '',
     dataInicio: '',
     dataFim: '',
     tipoRota: '',
     observacao: ''
   });
+
+  // Estados para controle de paginação
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5); // Definindo 5 itens por página
 
   // Função de filtragem dos dados
   const filteredData = data?.filter((item) => {
@@ -44,6 +48,11 @@ const TabelaReembolso = ({ data, loading, token, onUpdate }) => {
     );
   });
 
+  // Cálculo para a paginação
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -52,7 +61,6 @@ const TabelaReembolso = ({ data, loading, token, onUpdate }) => {
     });
   };
 
-  // Função para enviar os dados do formulário
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -65,14 +73,11 @@ const TabelaReembolso = ({ data, loading, token, onUpdate }) => {
         observacao: formData.observacao,
       }, {
         headers: {
-          'Authorization': `Bearer ${token}`, // Incluindo o token no cabeçalho
+          'Authorization': `Bearer ${token}`,
         }
       });
 
       if (response.status === 201) {
-        console.log("Resposta do servidor:", response.data);
-
-        // Fechar o formulário e limpar os campos após o sucesso
         setShowForm(false);
         setFormData({
           dataInicio: '',
@@ -80,9 +85,6 @@ const TabelaReembolso = ({ data, loading, token, onUpdate }) => {
           tipoRota: '',
           observacao: ''
         });
-
-        // Atualizar a página após o post
-        window.location.reload(); // Adiciona a recarga da página após sucesso
       } else {
         console.error("Erro ao enviar os dados:", response.status);
       }
@@ -92,7 +94,7 @@ const TabelaReembolso = ({ data, loading, token, onUpdate }) => {
   };
 
   const handleHistoricoClick = (id) => {
-    console.log(`Histórico clicado para a solicitação ${id}`, user.name);
+    console.log(`Histórico clicado para a solicitação ${id}`);
   };
 
   const handleDespesasClick = (id) => {
@@ -221,7 +223,7 @@ const TabelaReembolso = ({ data, loading, token, onUpdate }) => {
             </tr>
           </thead>
           <tbody>
-            {filteredData.map((dataItem) => (
+            {currentItems.map((dataItem) => (
               <tr key={dataItem.id}>
                 <td className='id-cell'>{dataItem.id}</td>
                 <td>{dataItem.Data}</td>
@@ -247,6 +249,25 @@ const TabelaReembolso = ({ data, loading, token, onUpdate }) => {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Controles de paginação */}
+      <div className="pagination">
+        <button 
+          onClick={() => setCurrentPage(currentPage - 1)} 
+          disabled={currentPage === 1}
+        >
+          Anterior
+        </button>
+        
+        <span>Página {currentPage}</span>
+        
+        <button 
+          onClick={() => setCurrentPage(currentPage + 1)} 
+          disabled={indexOfLastItem >= filteredData.length}
+        >
+          Próxima
+        </button>
       </div>
     </section>
   );

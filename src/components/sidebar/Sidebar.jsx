@@ -364,7 +364,7 @@ const Sidebar = () => {
                 <span className="menu-link-text">Logout</span>
                 </button>
             </li>
-            <li className="userName">Logado como:{user?.name}</li>
+            <li className="userName">Logado como: {user?.name}</li>
           </ul>
         </div>
       </div>
