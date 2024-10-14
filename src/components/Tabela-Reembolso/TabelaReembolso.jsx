@@ -17,7 +17,8 @@ const TABLE_HEADS = [
 
 const WEEK_OPTIONS = ["Semana 1", "Semana 2", "Semana 3"];
 const STATUS_OPTIONS = ["Pendente", "Em andamento", "Aprovado"];
-const ROTA_OPTIONS = ["Rota 1", "Rota 2", "Rota 3"];
+const ROTA_OPTIONS = ["Reembolso", "Adiantamento", "teste"];
+const TIPO_ROTA_OPTIONS = ["Reembolso", "Adiantamento", "teste"]; // Novas opções de Tipo de Rota
 
 const TabelaReembolso = ({ data, loading, token, onUpdate }) => {
   const { user } = useUser();
@@ -85,6 +86,8 @@ const TabelaReembolso = ({ data, loading, token, onUpdate }) => {
           tipoRota: '',
           observacao: ''
         });
+        // Atualizar a página após o post
+        window.location.reload(); // Adiciona a recarga da página após sucesso
       } else {
         console.error("Erro ao enviar os dados:", response.status);
       }
@@ -138,13 +141,19 @@ const TabelaReembolso = ({ data, loading, token, onUpdate }) => {
               </label>
               <label>
                 Tipo da Rota:
-                <input
-                  type="text"
+                <select
                   name="tipoRota"
                   value={formData.tipoRota}
                   onChange={handleInputChange}
                   required
-                />
+                >
+                  <option value="">Selecione o tipo de rota</option>
+                  {TIPO_ROTA_OPTIONS.map((tipo, index) => (
+                    <option key={index} value={tipo}>
+                      {tipo}
+                    </option>
+                  ))}
+                </select>
               </label>
               <label>
                 Observação:

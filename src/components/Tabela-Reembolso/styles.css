@@ -103,6 +103,13 @@
   border-radius: 4px;
 }
 
+select{
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
+
 .request-form .form-buttons {
   margin-top: 10px;
   display: flex;
@@ -137,6 +144,6 @@
   .btn-search:hover {
     background-color: #0056b3;
   }
-  
+
 
  
