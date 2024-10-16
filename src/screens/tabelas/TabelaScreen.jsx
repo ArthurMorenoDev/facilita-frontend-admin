@@ -42,6 +42,8 @@ const Tables = () => {
         Rota: item.tipo_rota, // Rota
         Status: item.status, // Status
         Valor: formatValor(item.valor), // Formatar o valor com separadores de milhar e ponto para centavos
+        usuario_solicitante: item.usuario_solicitante
+
       }));
 
       console.log(res.data);

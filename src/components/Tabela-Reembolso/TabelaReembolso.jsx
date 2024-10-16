@@ -39,13 +39,16 @@ const TabelaReembolso = ({ data, loading, token, onUpdate }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5); // Definindo 5 itens por página
 
+  // Estados para controlar o modal de histórico
+  const [showHistoricoModal, setShowHistoricoModal] = useState(false);
+  const [selectedSolicitante, setSelectedSolicitante] = useState('');
+
   // Função de filtragem dos dados
   const filteredData = data?.filter((item) => {
     return (
       (weekFilter ? item.Semana === weekFilter : true) &&
       (statusFilter ? item.Status === statusFilter : true) &&
-      (rotaFilter ? item.Rota === rotaFilter : true) &&
-      (protocoloFilter ? item.id === protocoloFilter : true)
+      (rotaFilter ? item.Rota === rotaFilter : true) 
     );
   });
 
@@ -96,8 +99,13 @@ const TabelaReembolso = ({ data, loading, token, onUpdate }) => {
     }
   };
 
-  const handleHistoricoClick = (id) => {
-    console.log(`Histórico clicado para a solicitação ${id}`);
+  const handleHistoricoClick = (usuario_solicitante) => {
+    setSelectedSolicitante(usuario_solicitante);
+    setShowHistoricoModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowHistoricoModal(false);
   };
 
   const handleDespesasClick = (id) => {
@@ -110,6 +118,17 @@ const TabelaReembolso = ({ data, loading, token, onUpdate }) => {
 
   return (
     <section className="content-area-table">
+      {/* Modal de Histórico */}
+      {showHistoricoModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <h3>Histórico do Solicitante</h3>
+            <p>Solicitante: {selectedSolicitante}</p>
+            <button onClick={handleCloseModal}>Fechar</button>
+          </div>
+        </div>
+      )}
+
       <button className="btn-show-form" onClick={() => setShowForm(!showForm)}>
         Solicitar Nova Rota
       </button>
@@ -206,20 +225,6 @@ const TabelaReembolso = ({ data, loading, token, onUpdate }) => {
             ))}
           </select>
         </label>
-        <label>
-          Protocolo:
-          <select value={protocoloFilter} onChange={(e) => setProtocoloFilter(e.target.value)}>
-            <option value="">Todos</option>
-            {data?.map((item, index) => (
-              <option key={index} value={item.id}>
-                {item.id}
-              </option>
-            ))}
-          </select>
-        </label>
-        <button className="btn-search">
-          <MdSearch size={24} />
-        </button>
       </div>
 
       <div className="data-table-diagram">
@@ -242,7 +247,7 @@ const TabelaReembolso = ({ data, loading, token, onUpdate }) => {
                 <td>{dataItem.Valor}</td>
                 <td className="icon-cell">
                   <MdHistory
-                    onClick={() => handleHistoricoClick(dataItem.id)}
+                    onClick={() => handleHistoricoClick(dataItem.usuario_solicitante)} // Passando o solicitante correto
                     className="icon"
                     title="Ver Histórico"
                   />
@@ -264,17 +269,13 @@ const TabelaReembolso = ({ data, loading, token, onUpdate }) => {
       <div className="pagination">
         <button 
           onClick={() => setCurrentPage(currentPage - 1)} 
-          disabled={currentPage === 1}
-        >
+          disabled={currentPage === 1}>
           Anterior
         </button>
-        
         <span>Página {currentPage}</span>
-        
         <button 
           onClick={() => setCurrentPage(currentPage + 1)} 
-          disabled={indexOfLastItem >= filteredData.length}
-        >
+          disabled={indexOfLastItem >= filteredData.length}>
           Próxima
         </button>
       </div>
