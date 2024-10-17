@@ -32,7 +32,8 @@ const TabelaReembolso = ({ data, loading, token, onUpdate }) => {
     dataInicio: '',
     dataFim: '',
     tipoRota: '',
-    observacao: ''
+    observacao: '',
+    valor: ''
   });
 
   // Estados para controle de paginação
@@ -48,7 +49,7 @@ const TabelaReembolso = ({ data, loading, token, onUpdate }) => {
     return (
       (weekFilter ? item.Semana === weekFilter : true) &&
       (statusFilter ? item.Status === statusFilter : true) &&
-      (rotaFilter ? item.Rota === rotaFilter : true) 
+      (rotaFilter ? item.Rota === rotaFilter : true)
     );
   });
 
@@ -75,6 +76,7 @@ const TabelaReembolso = ({ data, loading, token, onUpdate }) => {
         dataFim: formData.dataFim,
         tipoRota: formData.tipoRota,
         observacao: formData.observacao,
+        valor: parseFloat(formData.valor) // Convertendo valor para float
       }, {
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -87,7 +89,8 @@ const TabelaReembolso = ({ data, loading, token, onUpdate }) => {
           dataInicio: '',
           dataFim: '',
           tipoRota: '',
-          observacao: ''
+          observacao: '',
+          valor: '' // Limpa o campo valor após o envio
         });
         // Atualizar a página após o post
         window.location.reload(); // Adiciona a recarga da página após sucesso
@@ -99,8 +102,8 @@ const TabelaReembolso = ({ data, loading, token, onUpdate }) => {
     }
   };
 
-  const handleHistoricoClick = (usuario_solicitante) => {
-    setSelectedSolicitante(usuario_solicitante);
+  const handleHistoricoClick = (usuario_solicitante,data_aprovacao_financeiro,data_aprovacao_regional,data_credito) => {
+    setSelectedSolicitante(usuario_solicitante,data_aprovacao_financeiro,data_aprovacao_regional,data_credito);
     setShowHistoricoModal(true);
   };
 
@@ -155,7 +158,6 @@ const TabelaReembolso = ({ data, loading, token, onUpdate }) => {
                   name="dataFim"
                   value={formData.dataFim}
                   onChange={handleInputChange}
-                  required
                 />
               </label>
               <label>
@@ -180,6 +182,18 @@ const TabelaReembolso = ({ data, loading, token, onUpdate }) => {
                   name="observacao"
                   value={formData.observacao}
                   onChange={handleInputChange}
+                />
+              </label>
+              <label>
+                Valor:
+                <input
+                  name='valor'
+                  type='number' // Alterar para o tipo 'number'
+                  value={formData.valor}
+                  onChange={handleInputChange}
+                  min="0" // Definir um valor mínimo
+                  step="0.01" // Definir o passo para aceitar números com até duas casas decimais
+                  required
                 />
               </label>
             </div>
@@ -267,14 +281,14 @@ const TabelaReembolso = ({ data, loading, token, onUpdate }) => {
 
       {/* Controles de paginação */}
       <div className="pagination">
-        <button 
-          onClick={() => setCurrentPage(currentPage - 1)} 
+        <button
+          onClick={() => setCurrentPage(currentPage - 1)}
           disabled={currentPage === 1}>
           Anterior
         </button>
         <span>Página {currentPage}</span>
-        <button 
-          onClick={() => setCurrentPage(currentPage + 1)} 
+        <button
+          onClick={() => setCurrentPage(currentPage + 1)}
           disabled={indexOfLastItem >= filteredData.length}>
           Próxima
         </button>
