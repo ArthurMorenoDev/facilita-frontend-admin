@@ -183,6 +183,11 @@ select{
   .modal-content button:hover {
     background-color: #0056b3;
   }
+  label{
+    textarea{
+      resize: none;
+    }
+  }
 
 
  
